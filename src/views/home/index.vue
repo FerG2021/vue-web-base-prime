@@ -1,83 +1,76 @@
 <template>
-	<main class="home-page">
-		<el-card>
-			<h1>Home</h1>
+  <main class="home-page">
+    <el-card>
+      <h1>Mesas</h1>
 
-      <!-- <el-row :gutter="10" style="margin-top: 20px">
-        <el-col :span="6">
-          <el-card @click="$router.replace('/presupuestacion')" class="botonHome">
-            <h3 style="text-align: center">Provisiones</h3>            
-            <div style="display:flex">
-              <div style="margin: auto">
-                <span class="material-icons iconoTarjeta" style="font-size: 16vh">assignment</span>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card @click="$router.replace('/borrador')"  class="botonHome">
-            <h3 style="text-align: center">Borradores</h3>
-            <div style="display:flex">
-              <div style="margin: auto">
-                <span class="material-icons iconoTarjeta" style="font-size: 16vh">assignment_late</span>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
+      <div class="grid">
+        <div class="col-4">2</div>
+      </div>
 
-        <el-col :span="6">
-          <el-card @click="$router.replace('/ordencompra')"  class="botonHome">
-            <h3 style="text-align: center">Órdenes de compra</h3>
-            <div style="display:flex">
-              <div style="margin: auto">
-                <span class="material-icons iconoTarjeta" style="font-size: 16vh">receipt</span>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
+      <div class="grid">
+        <div class="col">1</div>
+        <div class="col">2</div>
+        <div class="col">3</div>
+      </div>
 
-        <el-col :span="6">
-          <el-card @click="$router.replace('/transferencia')"  class="botonHome">
-            <h3 style="text-align: center">Transferencias</h3>
-            <div style="display:flex">
-              <div style="margin: auto">
-                <span class="material-icons iconoTarjeta" style="font-size: 16vh">move_up</span>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        
-      </el-row> -->
+      <Card style="width: 20em">
+        <template #title> Mesa #1 </template>
+        <template #subtitle> Pedido por: Fernando </template>
+        <!-- <template #content>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+            sed consequuntur error repudiandae numquam deserunt quisquam
+            repellat libero asperiores earum nam nobis, culpa ratione quam
+            perferendis esse, cupiditate neque quas!
+          </p>
+        </template> -->
+        <template #footer>
+          <Button
+            icon="pi pi-eye"
+            label="Detalles"
+            @click="$refs.modalDetalles.abrir(slotProps.data.id)"
+          />
+        </template>
+      </Card>
+    </el-card>
+  </main>
 
-      
-
-		</el-card>     
-	</main>
+  <modal-detalles
+    ref="modalDetalles"
+    @actualizarTabla="obtenerTodos"
+  ></modal-detalles>
 </template>
 
 <script>
-	export default {
+import ModalDetalles from "./modales/detalles.vue";
 
-	}
+export default {
+  components: {
+    ModalDetalles,
+  },
+
+  data() {
+    return {};
+  },
+};
 </script>
 
 <style>
-	el-card{
-		margin: 0px;
-		padding: 0px;
-	}
+el-card {
+  margin: 0px;
+  padding: 0px;
+}
 
-  .botonHome:hover{
-    transform: translateY(-2px);
-    box-shadow: 0px 2px 5px #0000002a !important;
-    cursor: pointer;
-    background-color: #cccccc
-;
-  }
+.botonHome:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 2px 5px #0000002a !important;
+  cursor: pointer;
+  background-color: #cccccc;
+}
 
-  .iconoTarjeta{
-    font-size: 16vh; 
-    margin-top: 20px; 
-    color: var(--dark-alt);
-  }
+.iconoTarjeta {
+  font-size: 16vh;
+  margin-top: 20px;
+  color: var(--dark-alt);
+}
 </style>

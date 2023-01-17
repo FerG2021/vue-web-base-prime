@@ -13,30 +13,61 @@ export default createStore({
     presupuestacionID: null,
     proveedorID: null,
   },
-  
+
   mutations: {
-    SET_USER(state, user){
+    SET_USER(state, user) {
       console.log("user");
       console.log(user);
       state.user = user
     }
   },
-  
+
   actions: {
-    async login({ dispatch },credentials){
+    async login({ dispatch }, credentials) {
       console.log("credentials");
       // console.log(credentials);
 
       await axios.get("/sanctum/csrf-cookie");
       console.log("respuesta cookie");
-      const respuesta = await axios.post("/login", credentials);
-      console.log("respuesta");
-      // console.log(respuesta.errors.message);
+      await axios.post("/login", credentials)
+        .then(res => {
+          console.log("res");
+          console.log(res);
+
+          // commit("SET_USER", res.data)
+        })
+        // .catch(() => {
+        //   console.log("res");
+        //   console.log(res);
+
+        //   commit("SET_USER", null)
+        // })
+
+        .catch(function (error) {
+          if (error.response) {
+            // La respuesta fue hecha y el servidor respondió con un código de estado
+            // que esta fuera del rango de 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // La petición fue hecha pero no se recibió respuesta
+            // `error.request` es una instancia de XMLHttpRequest en el navegador y una instancia de
+            // http.ClientRequest en node.js
+            console.log(error.request);
+          } else {
+            // Algo paso al preparar la petición que lanzo un Error
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
+
+
 
       return dispatch("getUser");
     },
 
-    getUser({ commit }){
+    getUser({ commit }) {
       console.log("getUser");
       const res = axios.get("/user")
         .then(res => {
@@ -45,17 +76,36 @@ export default createStore({
 
           commit("SET_USER", res.data)
         })
-        .catch(() => {
-          console.log("res");
-          console.log(res);
+        // .catch(() => {
+        //   console.log("res");
+        //   console.log(res);
 
-          commit("SET_USER", null)
-        })
-      
+        //   commit("SET_USER", null)
+        // })
+
+        .catch(function (error) {
+          if (error.response) {
+            // La respuesta fue hecha y el servidor respondió con un código de estado
+            // que esta fuera del rango de 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // La petición fue hecha pero no se recibió respuesta
+            // `error.request` es una instancia de XMLHttpRequest en el navegador y una instancia de
+            // http.ClientRequest en node.js
+            console.log(error.request);
+          } else {
+            // Algo paso al preparar la petición que lanzo un Error
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
+
 
     },
   },
-  
+
   modules: {
 
   }

@@ -11,8 +11,11 @@ const router = createRouter({
             path: '/',
             component: () => import('../views/home/index.vue')
         },
-       
-        
+        {
+            path: '/categorias',
+            component: () => import('../views/categories/index.vue')
+        },
+
         {
             path: '/mi-cuenta',
             component: () => import('../views/miCuenta/index.vue')

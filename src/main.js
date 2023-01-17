@@ -64,6 +64,13 @@ import InputText from 'primevue/inputtext'
 // Input Password
 import Password from 'primevue/password';
 
+// Card
+import Card from 'primevue/card';
+
+// prime flex
+import 'primeflex/primeflex.css';
+
+
 
 //
 // FIN PRIME VUE
@@ -105,29 +112,29 @@ const variableGlobal = {
 
 // Create a new store instance.
 const store = createStore({
-  state: { 
+  state: {
     user: null,
     auth: false,
   },
-  mutations: { 
-    SET_USER(state, user){
+  mutations: {
+    SET_USER(state, user) {
       state.user = user
       state.auth = Boolean(user)
     }
   },
-  actions:{
-    async login({ dispatch }, credentials ){
+  actions: {
+    async login({ dispatch }, credentials) {
       await axios.get("/sanctum/csrf-cookie");
       await axios.post("/login", credentials);
       return dispatch("getUser");
     },
 
-    async logout({ dispatch }){
+    async logout({ dispatch }) {
       await axios.post("/logout");
       return dispatch("getUser");
     },
 
-    getUser({ commit }){
+    getUser({ commit }) {
       axios.get("/api/user")
         .then(res => {
           commit('SET_USER', res.data)
@@ -137,7 +144,7 @@ const store = createStore({
         })
     },
   },
-  modules:{}
+  modules: {}
 })
 
 store.dispatch('getUser');
@@ -163,18 +170,20 @@ createApp(App)
   .component('InputNumber', InputNumber)
   .component('InputSwitch', InputSwitch)
   .component('Tag', Tag)
+  .component('Card', Card)
   .use(router)
-  .use(ElementPlus, {locale})
+  .use(ElementPlus, { locale })
   .use(ElMessage)
   .use(VueAxios, axios)
   .mixin(variableGlobal)
   .use(store)
   .use(PrimeVue, {
     locale: {
-        accept: 'Aceptar',
-        reject: 'Rechazar',
-        //...
-    }})
+      accept: 'Aceptar',
+      reject: 'Rechazar',
+      //...
+    }
+  })
   .use(ToastService)
   .use(ConfirmationService)
   .use(DialogService)
